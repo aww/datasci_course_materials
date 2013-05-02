@@ -8,6 +8,8 @@ access_token_secret = "<Enter your access token secret here>"
 consumer_key = "<Enter consumer key>"
 consumer_secret = "<Enter consumer secret>"
 
+from my_twitter_keys import access_token_key, access_token_secret, consumer_key, consumer_secret
+
 _debug = 0
 
 oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
