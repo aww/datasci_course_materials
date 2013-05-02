@@ -1,5 +1,7 @@
 import oauth2 as oauth
 import urllib2 as urllib
+import my_affin
+
 
 # See Assginment 6 instructions or README for how to get these credentials
 access_token_key = "<Enter your access token key here>"
@@ -56,8 +58,15 @@ def fetchsamples():
   url = "https://stream.twitter.com/1/statuses/sample.json"
   parameters = []
   response = twitterreq(url, "GET", parameters)
-  for line in response:
-    print line.strip()
+  aff_running_sum = 0
+  try:
+    for line in response:
+      aff = my_affin.getaffin(line)
+      if aff != None:
+        aff_running_sum += aff
+        print "%3d %10d" % (aff, aff_running_sum)
+  except KeyboardInterrupt:
+    print "Done."
 
 if __name__ == '__main__':
   fetchsamples()
