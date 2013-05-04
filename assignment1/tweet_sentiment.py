@@ -1,17 +1,40 @@
 import sys
-
-def hw():
-    print 'Hello, world!'
+import json
+import re
 
 def lines(fp):
     print str(len(fp.readlines()))
 
+def sentimentMappingFromFile(filename):
+    sentiments = {}
+    with open(filename) as f:
+        for line in f:
+            m = re.match(r'(.*)\t(-?\d)', line)
+            if m:
+                sentiments[m.group(1)] = int(m.group(2))
+            else:
+                print "Warning: can't parse", line
+    return sentiments
+
+def tweetsFromFile(filename):
+    with open(filename) as f:
+        for line in f:
+            yield json.loads(line)
+
+def sentimentOfTweet(tweet, mapping):
+    if 'text' in tweet:
+        sent = 0
+        for word in tweet['text'].split():
+            if word in mapping:
+                sent += mapping[word]
+        return sent
+    else:
+        return 0
+
 def main():
-    sent_file = open(sys.argv[1])
-    tweet_file = open(sys.argv[2])
-    hw()
-    lines(sent_file)
-    lines(tweet_file)
+    sentiment_mapping = sentimentMappingFromFile(sys.argv[1])
+    for t in tweetsFromFile(sys.argv[2]):
+        print sentimentOfTweet(t, sentiment_mapping)
 
 if __name__ == '__main__':
     main()
