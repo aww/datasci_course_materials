@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 import sys
 import json
 import re
+import pprint
 
 def lines(fp):
     print str(len(fp.readlines()))
@@ -24,9 +27,11 @@ def tweetsFromFile(filename):
 def sentimentOfTweet(tweet, mapping):
     if 'text' in tweet:
         sent = 0
+        scoring_words = []
+        unkown_words = []
         for word in tweet['text'].split():
-            if word in mapping:
-                sent += mapping[word]
+            if word.lower() in mapping:
+                sent += mapping[word.lower()]
         return sent
     else:
         return 0
@@ -34,6 +39,7 @@ def sentimentOfTweet(tweet, mapping):
 def main():
     sentiment_mapping = sentimentMappingFromFile(sys.argv[1])
     for t in tweetsFromFile(sys.argv[2]):
+        #pprint.pprint(t)
         print sentimentOfTweet(t, sentiment_mapping)
 
 if __name__ == '__main__':
