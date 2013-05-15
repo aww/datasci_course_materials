@@ -1,0 +1,9 @@
+sqlite3 reuters.db < a_select.sql            > a_select.txt
+sqlite3 reuters.db < b_select_project.sql    > b_select_project.txt
+sqlite3 reuters.db < c_union.sql             > c_union.txt
+sqlite3 reuters.db < d_count.sql             > d_count.txt
+sqlite3 reuters.db < e_big_documents.sql     > e_big_documents.txt
+sqlite3 reuters.db < f_two_words.sql         > f_two_words.txt
+sqlite3 matrix.db  < g_multiply.sql          > g_multiply.txt
+sqlite3 reuters.db < h_similarity_matrix.sql > h_similarity_matrix.txt
+sqlite3 reuters.db < i_keyword_search.sql    > i_keyword_search.txt
